@@ -10,7 +10,8 @@ const mobileMenu = document.querySelector('.mobile-menu');
 
 /*Aparece y desaparece contenido del carrito de compras*/
 const btnCarrito = document.querySelector('.navbar-shopping-cart');
-const myorder = document.querySelector('.product-detail');
+//En el ejemplo este se llama shoppingCartContainer
+const myorder = document.querySelector('#shoppingCartContainer');
 
 //constante tipo array para la liste de productos
 const productLis = [];
