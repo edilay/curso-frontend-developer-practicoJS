@@ -19,6 +19,11 @@ const productLis = [];
 //Constante para la grilla que despliega los productos
 const cardsContainer = document.querySelector('.cards-container');
 
+//constante para el detalle del producto
+const productDetailContainer = document.querySelector('#productDetail');
+//contante Botón para cerrar la ventana de detalle producto
+const btnCloseDetailProduct = document.querySelector('.product-detail-close');
+
 /*Aparece y desaparece el menú al hacer clic en el email.---------------------*/
 menuEmail.addEventListener('click',toggleDesktopMenu);
 
@@ -27,6 +32,9 @@ btnMobileMenu.addEventListener('click',toggleMobileMenu);
 
 /*Aparece y desaparece contenido del carrito de compras*/
 btnCarrito.addEventListener('click',toggleCarrito);
+
+//cierra la ventana detalle del producto
+btnCloseDetailProduct.addEventListener('click',closeProductDetailAside)
 
 /*Aparece y desaparece el menú al hacer clic en el email.---------------------*/
 function hideOrdenMenu()
@@ -53,9 +61,11 @@ function hideDesktopMenu()
     }
 }
 
+
+//muestra el menú desktop
 function toggleDesktopMenu(){
     console.log('Click Desktop Menú');
-    hideOrdenMenu()
+    hideOrdenMenu()//si está abierto cierra el menú de órdenes
     desktopMenu.classList.toggle('inactive');
 
 }
@@ -64,7 +74,8 @@ function toggleDesktopMenu(){
 function toggleMobileMenu(){
     console.log('Click Mobile Menú');
     const ismyOrdenClosed = myorder.classList.contains('inactive');
-    hideOrdenMenu();
+    hideOrdenMenu();//si está abierto cierra el menú de órdendes    
+    closeProductDetailAside();//cierra detalle del producto
     mobileMenu.classList.toggle('inactive');//muestra / oculta el menú móvil.
 }
 
@@ -72,12 +83,24 @@ function toggleMobileMenu(){
 /*Aparece y desaparece contenido del carrito de compras*/
 function toggleCarrito(){
     console.log('Click muestra carrito');
-    hideMobileMenu();
-    hideDesktopMenu();
-    myorder.classList.toggle('inactive');//muestr/oculta el menú con la orden
-   
+    hideMobileMenu();//si está abierto cierra el menú mobile
+    hideDesktopMenu();//si está abierto cierra el mení desktop    
+    closeProductDetailAside();//cierra detalle del producto
+    myorder.classList.toggle('inactive');//muestr/oculta el menú con la orden  
 
 }
+
+function openProductDetailsAside (){
+    console.log('Abre detalle producto');
+    hideOrdenMenu();
+    productDetailContainer.classList.remove('inactive');
+
+}
+function closeProductDetailAside(){
+    console.log('Cierra detalle del producto');
+    productDetailContainer.classList.add('inactive');
+}
+
 // INGRESA PRODUCTOS DE EJEMPLO EN EL ARRAY
 productLis.push({
   name: 'Cicla',
@@ -130,6 +153,7 @@ function renderProducts(Productos){
 
     const productImg = document.createElement('img');//Crea la imagen del producto
     productImg.setAttribute('src',product.image);//en lugar de la url se usa la propiedad image del array
+    productImg.addEventListener('click', openProductDetailsAside);
     //Crea el div interno con la  información del producto
         const productinfo = document.createElement('div');//crea el div
         productinfo.classList.add('product-info');//le adiciona la case
